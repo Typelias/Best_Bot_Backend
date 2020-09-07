@@ -115,13 +115,27 @@ func getFirstPosts(subreddit string) resultData {
 		fmt.Println(err)
 	}
 	req.Header.Set("User-Agent", "your bot 0.1")
-	res, _ := client.Do(req)
-	defer res.Body.Close()
-	body, _ := ioutil.ReadAll(res.Body)
+	res, getErr := client.Do(req)
+
+	if getErr != nil {
+		fmt.Println("Get Error", getErr)
+	}
+
+	if res.Body != nil {
+		defer res.Body.Close()
+	}
+
+	body, readErr := ioutil.ReadAll(res.Body)
+	if readErr != nil {
+		fmt.Println("Read Error", readErr)
+	}
 
 	var redditResult result
 
-	json.Unmarshal(body, &redditResult)
+	jsonErr := json.Unmarshal(body, &redditResult)
+	if jsonErr != nil {
+		fmt.Println("Json Error", jsonErr)
+	}
 
 	return redditResult.Data
 
