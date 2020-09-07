@@ -108,7 +108,7 @@ func search(list []string, key string) bool {
 
 func getFirstPosts(subreddit string) resultData {
 	client := http.Client{
-		Timeout: time.Second * timeOut,
+		Timeout: time.Second * time.Duration(timeOut),
 	}
 
 	req, err := http.NewRequest(http.MethodGet, "https://www.reddit.com/r/"+subreddit+"/hot.json?limit=100", nil)
@@ -144,7 +144,7 @@ func getFirstPosts(subreddit string) resultData {
 
 func getMore(subreddit string, after string) resultData {
 	client := http.Client{
-		Timeout: time.Second * timeOut,
+		Timeout: time.Second * time.Duration(timeOut),
 	}
 
 	req, err := http.NewRequest(http.MethodGet, "https://www.reddit.com/r/"+subreddit+"/hot.json?limit=100&after"+after, nil)
