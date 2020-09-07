@@ -129,7 +129,7 @@ func getFirstPosts(subreddit string) resultData {
 
 func getMore(subreddit string, after string) resultData {
 	client := http.Client{
-		Timeout: time.Second * 2,
+		Timeout: time.Second * 10,
 	}
 
 	req, err := http.NewRequest(http.MethodGet, "https://www.reddit.com/r/"+subreddit+"/hot.json?limit=100&after"+after, nil)
