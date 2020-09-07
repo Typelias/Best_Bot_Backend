@@ -79,8 +79,10 @@ func (s *Subreddit) UpdateSubbredditList(newList []string) {
 		} else {
 			s.subredditList = append(s.subredditList, sub)
 			s.subreddits[sub] = redditGetter(sub, hundredAmount)
+			fmt.Println("Added subbreddit: ", sub, "With post amount:", len(s.subreddits[sub]))
 		}
 	}
+	fmt.Println("Added all new subbreddits")
 	s.m.Unlock()
 }
 
