@@ -156,11 +156,9 @@ func redditGetter(subreddit string, numberOfHundred int) []string {
 
 	if numberOfHundred > 1 {
 		for i := numberOfHundred; i > 1; i-- {
-			fmt.Println(i)
 			temp = getMore(subreddit, after)
 			posts = append(posts, temp.Posts...)
 			after = temp.After
-			fmt.Println(after)
 		}
 	}
 
