@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"net/http"
+	"os"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -46,7 +48,9 @@ func (s *Subreddit) populateSubreddits() {
 	s.m.Lock()
 	for _, sub := range s.subredditList {
 		s.subreddits[sub] = redditGetter(sub, hundredAmount)
+		fmt.Println("Updated subbreddit: ", sub, "With post amount:", len(s.subreddits[sub]))
 	}
+	fmt.Println("Updated all subbreddits")
 	s.m.Unlock()
 }
 
@@ -74,6 +78,10 @@ func (s *Subreddit) GetAllSubreddits() []string {
 
 // UpdateSubbredditList updates the list of subreddits
 func (s *Subreddit) UpdateSubbredditList(newList []string) {
+	f, err := os.Create("log.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
 	s.m.Lock()
 	for _, sub := range newList {
 		if search(s.subredditList, sub) {
@@ -82,6 +90,7 @@ func (s *Subreddit) UpdateSubbredditList(newList []string) {
 			s.subredditList = append(s.subredditList, sub)
 			s.subreddits[sub] = redditGetter(sub, hundredAmount)
 			fmt.Println("Added subbreddit: ", sub, "With post amount:", len(s.subreddits[sub]))
+			f.WriteString("Added subbreddit: " + sub + "With post amount:" + strconv.Itoa(len(s.subreddits[sub])) + "\n")
 		}
 	}
 	fmt.Println("Added all new subbreddits")
