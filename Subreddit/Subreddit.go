@@ -45,10 +45,15 @@ func endsWith(s string, end string) bool {
 }
 
 func (s *Subreddit) populateSubreddits() {
+	f, err := os.Create("log.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
 	s.m.Lock()
 	for _, sub := range s.subredditList {
 		s.subreddits[sub] = redditGetter(sub, hundredAmount)
 		fmt.Println("Updated subbreddit: ", sub, "With post amount:", len(s.subreddits[sub]))
+		f.WriteString("Updated subbreddit: " + sub + "With post amount:" + strconv.Itoa(len(s.subreddits[sub])) + "\n")
 	}
 	fmt.Println("Updated all subbreddits")
 	s.m.Unlock()
