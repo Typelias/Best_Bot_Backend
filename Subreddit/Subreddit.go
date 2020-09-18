@@ -60,6 +60,7 @@ func (s *Subreddit) updator() {
 
 // Init Creates the subreddit object
 func (s *Subreddit) Init() {
+	rand.Seed(time.Now().Unix())
 	s.subredditList = []string{"funny"}
 	s.subreddits = make(map[string][]string)
 	s.populateSubreddits()
@@ -90,7 +91,7 @@ func (s *Subreddit) UpdateSubbredditList(newList []string) {
 // GetRandomPost gets random post from a subreddit
 func (s *Subreddit) GetRandomPost(subreddit string) string {
 	s.m.Lock()
-	rand.Seed(time.Now().Unix())
+
 	ret := s.subreddits[subreddit][(rand.Int()%len(s.subreddits[subreddit]) - 1)]
 	s.m.Unlock()
 	return ret
