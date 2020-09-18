@@ -53,7 +53,7 @@ func (s *Subreddit) populateSubreddits() {
 	for _, sub := range s.subredditList {
 		s.subreddits[sub] = redditGetter(sub, hundredAmount)
 		fmt.Println("Updated subbreddit: ", sub, "With post amount:", len(s.subreddits[sub]))
-		f.WriteString("Updated subbreddit: " + sub + "With post amount:" + strconv.Itoa(len(s.subreddits[sub])) + "\n")
+		f.WriteString("Updated subbreddit: " + sub + " With post amount:" + strconv.Itoa(len(s.subreddits[sub])) + "\n")
 	}
 	fmt.Println("Updated all subbreddits")
 	s.m.Unlock()
@@ -95,7 +95,7 @@ func (s *Subreddit) UpdateSubbredditList(newList []string) {
 			s.subredditList = append(s.subredditList, sub)
 			s.subreddits[sub] = redditGetter(sub, hundredAmount)
 			fmt.Println("Added subbreddit: ", sub, "With post amount:", len(s.subreddits[sub]))
-			f.WriteString("Added subbreddit: " + sub + "With post amount:" + strconv.Itoa(len(s.subreddits[sub])) + "\n")
+			f.WriteString("Added subbreddit: " + sub + " With post amount:" + strconv.Itoa(len(s.subreddits[sub])) + "\n")
 		}
 	}
 	fmt.Println("Added all new subbreddits")
