@@ -46,6 +46,8 @@ func endsWith(s string, end string) bool {
 
 func (s *Subreddit) populateSubreddits() {
 	f, err := os.Create("log.txt")
+	dt := time.Now()
+	f.WriteString(dt.String() + "\n")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -84,6 +86,8 @@ func (s *Subreddit) GetAllSubreddits() []string {
 // UpdateSubbredditList updates the list of subreddits
 func (s *Subreddit) UpdateSubbredditList(newList []string) {
 	f, err := os.Create("log.txt")
+	dt := time.Now()
+	f.WriteString(dt.String() + "\n")
 	if err != nil {
 		fmt.Println(err)
 	}
