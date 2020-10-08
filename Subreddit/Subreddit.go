@@ -108,8 +108,11 @@ func (s *Subreddit) UpdateSubbredditList(newList []string) {
 
 // GetRandomPost gets random post from a subreddit
 func (s *Subreddit) GetRandomPost(subreddit string) string {
+	seed:= rand.NewSource(time.Now().Unix())
+	r := rand.New(seed)
+	index := r.Intn(len(s.subreddits[subreddit]))
 	s.m.Lock()
-	ret := s.subreddits[subreddit][(rand.Int()%len(s.subreddits[subreddit]) - 1)]
+	ret := s.subreddits[subreddit][index]
 	s.m.Unlock()
 	rand.Seed(time.Now().UnixNano())
 	return ret
